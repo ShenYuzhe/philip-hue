@@ -1,7 +1,7 @@
 {
 	"host": "http://192.168.1.2",
 	"root": "/api",
-	"token": "qLXNv02wxbmk9KW0lufFb23jTuLDcT4NFLDO8N3d",
+	"token": "xxx",
 	"bright": 4500,
 	"dark": 1500
 }
