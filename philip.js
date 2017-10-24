@@ -196,7 +196,6 @@ cmds = {
         if (process.argv.length >= 6) {
             var start = process.argv[3], last = process.argv[4];
             process.argv.splice(2, 3);
-            console.log(process.argv);
             setTimeout(function() {
                 execute();
             }, start * MIN);
