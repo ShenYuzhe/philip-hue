@@ -103,6 +103,8 @@ function shuffle(ids, isBright) {
 }
 
 /* command part */
+var MIN = 60 * 1000;
+
 function usage() {
     console.log('usage: node args.js');
     console.log('   -help');
@@ -113,6 +115,7 @@ function usage() {
     console.log('   -turnoff <light_id...>');
     console.log('   -blink <light_ids...>');
     console.log('   -shuffle -[bright | -dark] <light_ids...>');
+    console.log('   -timer <start> <last> <any of other command>');
 }
 
 function loopLights(callback, i) {
@@ -188,12 +191,28 @@ cmds = {
                 usage();
         } else
             usage();
+    },
+    '-timer': function () {
+        if (process.argv.length >= 6) {
+            var start = process.argv[3], last = process.argv[4];
+            process.argv.splice(2, 3);
+            console.log(process.argv);
+            setTimeout(function() {
+                execute();
+            }, start * MIN);
+            setTimeout(() => { process.exit(); }, start * MIN + last * MIN);
+        } else
+            usage();
     }
 };
 
-if (process.argv.length >= 3 && (cmd = process.argv[2]) && cmd in cmds) {
-    var cmdPromise = cmds[cmd]();
-    if (cmdPromise != undefined)
-        cmdPromise.then((resp) => { console.log(resp) });
-} else
-    usage();
+function execute() {
+    if (process.argv.length >= 3 && (cmd = process.argv[2]) && cmd in cmds) {
+        var cmdPromise = cmds[cmd]();
+        if (cmdPromise != undefined)
+            cmdPromise.then((resp) => { console.log(resp) });
+    } else
+        usage();
+}
+
+execute();
