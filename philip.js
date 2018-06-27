@@ -3,7 +3,8 @@ var fs = require('fs-sync');
 
 var config = require('./config.json');
 
-/* Philip Hue URL part*/
+/* Philip Hue URL part
+   author by yuzheshen(ys2821@columbia.edu) */
 function registerBody() {
     return {
         'devicetype':'my_hue_app#iphone peter'
